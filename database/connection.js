@@ -3,9 +3,9 @@ const dotenv = require('dotenv')
 
 dotenv.config()
 
-const sequelize = new Sequelize('crowd-quotes', process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
     dialect: 'postgres',
-    host:'192.168.0.117'
+    host:process.env.DB_HOST_IP
 })
 
 module.exports = sequelize
