@@ -2,9 +2,7 @@ const jwt = require('jsonwebtoken')
 
 module.exports = isLoggedIn = (req, res, next) => {
     const tokenHeader = req.header('Authorization')
-    console.log(tokenHeader)
     if(!tokenHeader) {
-        console.log('access denied')
         const response = {
             error: true, 
             message: "Access denied",
@@ -14,7 +12,7 @@ module.exports = isLoggedIn = (req, res, next) => {
     }
     // tokenHeader exists
     try {
-        const token = tokenHeader
+        const token = tokenHeader.split(' ')[1]
         req.decoded = jwt.verify(token, process.env.SECRET_KEY)
         next()
     } catch (error) {
