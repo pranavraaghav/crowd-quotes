@@ -31,5 +31,6 @@ app.use(express.json())
 // Mount routes
 app.use('/', routes)
 app.use('/api/v1/user', users)
+app.use('/api/v1/quote', quotes)
 
 module.exports = app

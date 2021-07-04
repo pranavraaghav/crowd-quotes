@@ -1,18 +1,19 @@
-const db = require("../database/connection");
 const User = require("../models/user");
-const { Sequelize } = require("sequelize");
-const { Op } = require("sequelize");
+const Quote = require("../models/quote");
 const uuid4 = require("uuid4");
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 class UserController {
+  /**
+   * @param  {string} username
+   * @param  {string} password
+   */
   static async signup(username, password) {
     try {
       const exists = await User.findOne({ where: { userName: username } });
       if (exists) {
         // Do not send hashed password back to user
         delete exists.dataValues.password;
-        console.log(exists);
         return {
           error: false,
           code: 400,
@@ -28,15 +29,19 @@ class UserController {
       const createdUser = await User.create(user);
       // Do not send hashed password back to user
       delete createdUser.dataValues.password;
-      const token = jwt.sign({
-        userId: createdUser.userId
-    }, process.env.SECRET_KEY)
+      const token = jwt.sign(
+        {
+          userId: createdUser.userId,
+        },
+        process.env.SECRET_KEY,
+        { expiresIn: "1d" }
+      );
       return {
         error: false,
         code: 201,
         message: "User created",
         data: createdUser,
-        jwt: token
+        jwt: token,
       };
     } catch (error) {
       console.log(error.toString());
@@ -47,20 +52,28 @@ class UserController {
       };
     }
   }
-
+  /**
+   * @param  {string} username
+   * @param  {string} password
+   */
   static async login(username, password) {
     try {
       const exists = await User.findOne({ where: { userName: username } });
       if (exists) {
         if (await exists.validPassword(password)) {
-          const token = jwt.sign({
-              userId: exists.userId
-          }, process.env.SECRET_KEY)
+          const token = jwt.sign(
+            {
+              userId: exists.userId,
+            },
+            process.env.SECRET_KEY,
+            { expiresIn: "1d" }
+          );
           return {
             error: false,
             code: 200,
-            message: "User is a part of the database. JWT Successfully generated.",
-            jwt: token
+            message:
+              "User is a part of the database. JWT Successfully generated.",
+            jwt: token,
           };
         }
       }
@@ -78,32 +91,41 @@ class UserController {
       };
     }
   }
-
-  static async getDetails (id) {
+  /**
+   * @param  {string} userId
+   */
+  static async getDetails(userId) {
     try {
-      const userDetails = await User.findOne({ where: {userId: id}})
-      if(!userDetails) {
+      const userDetails = await User.findOne({
+        where: { userId: userId },
+      }).then((user) => user.dataValues);
+      if (!userDetails) {
         return {
-          error: true, 
-          code: 404, 
-          message: "User does not exist"
-        }
+          error: true,
+          code: 404,
+          message: "User does not exist",
+        };
       }
-      delete userDetails.dataValues.password
+      delete userDetails.password;
+      // Fetch user's quotes
+      const userQuotes = await Quote.findAll({
+        where: { userId: userDetails.userId },
+      });
+      userDetails.quotes = userQuotes;
+      console.log(userDetails);
       return {
-        error: false, 
-        code: 200, 
+        error: false,
+        code: 200,
         message: "User details fetched successfully",
-        data: userDetails
-      }
-
+        data: userDetails,
+      };
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return {
         error: true,
-        code: 500, 
-        message: error.toString()
-      }
+        code: 500,
+        message: error.toString(),
+      };
     }
   }
 }
