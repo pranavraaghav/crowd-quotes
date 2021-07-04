@@ -1,0 +1,39 @@
+title Sequence Diagram
+
+bottomparticipants 
+
+actor Users
+participant Submittors
+
+participant Reviewers
+control System
+database Database
+
+participant Double click to edit text
+
+==User querying public API==
+Users->System: Query via API for random quote
+System->>Database: pass query
+Database->>System: Result
+System->>Users: Result
+
+==Submittor submitting a new quote==
+Submittors->>System: Submits new quote
+System->>Database: Adds quote with approved=false
+
+==Submittor viewing their quotes with approval status==
+Submittors->System: Submits queries /details
+System->>Database: Fetch
+Database->>System: Result
+System->>Submittors: Result
+
+
+==Reviewer reviews submissions==
+Reviewers->System: Ask for quotes to review
+System->>Database: Fetch quotes tagged approved=false
+Database->>System: Result
+System->Reviewers: Result
+Reviewers->>System: Approve/Reject
+System->>Database: Update quote approval status
+
+====
