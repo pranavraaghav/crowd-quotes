@@ -9,8 +9,8 @@ router.get("/", async (req, res) => {
   res.status(response.code).send(response);
 });
 
-router.post("/create", jwtVerify, async (req, res) => {
-  const response = await QuoteController.createQuote(
+router.post("/submit", jwtVerify, async (req, res) => {
+  const response = await QuoteController.submitQuote(
     req.body.text,
     req.decoded.userId
   );
