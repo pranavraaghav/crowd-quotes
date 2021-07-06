@@ -46,7 +46,7 @@ class QuoteController {
    * @param  {string} userId userId of quote author
    * @param  {string=} description Anything relevant to the story behind the quote
    */
-  static async createQuote(userId, text, description) {
+  static async submitQuote(userId, text, description) {
     try {
       const quote = {
         quoteId: uuid4(),

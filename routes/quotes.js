@@ -9,18 +9,22 @@ router.get("/", async (req, res) => {
   res.status(response.code).send(response);
 });
 
-router.post("/create", jwtVerify, async (req, res) => {
-  const response = await QuoteController.createQuote(
+
+router.post("/submit", jwtVerify, async (req, res) => {
+  const response = await QuoteController.submitQuote(
     req.decoded.userId,
     req.body.text,
-    req.body.description || null,
+    req.body.description || null
   );
   res.status(response.code).send(response);
 });
 
-router.get('/review', jwtVerify, async (req, res) => {
-  const response = await QuoteController.getQuotesForReview(req.decoded.userId, req.body.count || 1)
+router.get("/review", jwtVerify, async (req, res) => {
+  const response = await QuoteController.getQuotesForReview(
+    req.decoded.userId,
+    req.body.count || 1
+  );
   res.status(response.code).send(response);
-})
+});
 
 module.exports = router;
