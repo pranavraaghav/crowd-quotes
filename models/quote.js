@@ -22,6 +22,10 @@ const schema = {
         type: DataTypes.BOOLEAN,
         defaultValue: false, 
     },
+    description: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
     reviewedBy: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         defaultValue: []
