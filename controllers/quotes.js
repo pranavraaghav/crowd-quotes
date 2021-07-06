@@ -72,17 +72,22 @@ class QuoteController {
 
   static async getQuotesForReview(userId, count) {
     try {
-      const quote = await Quote.findAll({
-        where: { approved: false },
-        // order: ,
-      });
-      if (!quote) {
+      const quotes = await db.query(
+        `SELECT * FROM public."Quotes" WHERE "approved" = false AND NOT ('${userId}' = ANY ("reviewedBy"))`
+      );
+      console.log(quotes);
+      if (!quotes) {
         return {
           error: true,
           code: 400,
-          message: "No quote available based on criteria, sorry",
+          message: "No quotes available based on criteria, sorry",
         };
       }
+      return {
+        error: false,
+        code: 200,
+        data: quotes[0],
+      };
     } catch (error) {
       return {
         error: true,

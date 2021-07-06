@@ -19,7 +19,7 @@ router.post("/create", jwtVerify, async (req, res) => {
 });
 
 router.get('/review', jwtVerify, async (req, res) => {
-  const response = await QuoteController.getQuotesForReview(req.decoded.userId, count || 1)
+  const response = await QuoteController.getQuotesForReview(req.decoded.userId, req.body.count || 1)
   res.status(response.code).send(response);
 })
 
