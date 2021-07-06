@@ -1,41 +1,45 @@
-const { DataTypes } = require('sequelize')
-const db = require('../database/connection')
+const { DataTypes } = require("sequelize");
+const db = require("../database/connection");
 
 const schema = {
-    quoteId: {
-        type: DataTypes.UUID,
-        primaryKey: true
+  quoteId: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+  },
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    references: {
+      model: "Users",
+      key: "userId",
     },
-    userId: {
-        type: DataTypes.UUID,
-        allowNull: false, 
-        references: {
-            model: 'Users',
-            key: 'userId'
-        }
-    },
-    text: {
-        type: DataTypes.TEXT,
-        allowNull: false,         
-    },
-    approved: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false, 
-    },
-    description: {
-        type: DataTypes.TEXT,
-        allowNull: true
-    },
-    reviewedBy: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        defaultValue: []
-    }
-}
+  },
+  text: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  approved: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  approveCount: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  reviewedBy: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+    defaultValue: [],
+  },
+};
 
 const options = {
-    timestamps: true
-}
+  timestamps: true,
+};
 
-const Quote = db.define('Quote', schema, options)
+const Quote = db.define("Quote", schema, options);
 
-module.exports = Quote
+module.exports = Quote;
