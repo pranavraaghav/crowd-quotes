@@ -17,6 +17,10 @@ const schema = {
     type: sequelize.TEXT,
     allowNull: false,
   },
+  isReviewer: {
+    type: sequelize.BOOLEAN,
+    defaultValue: false,
+  }
 };
 
 const options = {
