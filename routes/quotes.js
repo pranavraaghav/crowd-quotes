@@ -11,10 +11,16 @@ router.get("/", async (req, res) => {
 
 router.post("/create", jwtVerify, async (req, res) => {
   const response = await QuoteController.createQuote(
+    req.decoded.userId,
     req.body.text,
-    req.decoded.userId
+    req.body.description || null,
   );
   res.status(response.code).send(response);
 });
+
+router.get('/review', jwtVerify, async (req, res) => {
+  const response = await QuoteController.getQuotesForReview(req.decoded.userId, count || 1)
+  res.status(response.code).send(response);
+})
 
 module.exports = router;

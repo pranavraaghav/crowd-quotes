@@ -2,6 +2,7 @@ const Quote = require("../models/quote");
 const User = require("../models/user");
 const uuid4 = require("uuid4");
 const db = require("../database/connection");
+const { Op } = require("sequelize");
 
 class QuoteController {
   /**
@@ -43,13 +44,15 @@ class QuoteController {
   /**
    * @param  {string} text The actual quote
    * @param  {string} userId userId of quote author
+   * @param  {string=} description Anything relevant to the story behind the quote
    */
-  static async createQuote(text, userId) {
+  static async createQuote(userId, text, description) {
     try {
       const quote = {
         quoteId: uuid4(),
         userId: userId,
         text: text,
+        description: description || null,
       };
       const createdQuote = await Quote.create(quote);
       return {
@@ -58,6 +61,28 @@ class QuoteController {
         message: "Quote added successfully",
         data: createdQuote,
       };
+    } catch (error) {
+      return {
+        error: true,
+        code: 500,
+        message: error.toString(),
+      };
+    }
+  }
+
+  static async getQuotesForReview(userId, count) {
+    try {
+      const quote = await Quote.findAll({
+        where: { approved: false },
+        // order: ,
+      });
+      if (!quote) {
+        return {
+          error: true,
+          code: 400,
+          message: "No quote available based on criteria, sorry",
+        };
+      }
     } catch (error) {
       return {
         error: true,
