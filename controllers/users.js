@@ -18,7 +18,6 @@ class UserController {
           error: false,
           code: 400,
           message: "User account already exists",
-          data: exists,
         };
       }
       const user = {
