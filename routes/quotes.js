@@ -13,10 +13,16 @@ router.post("/submit", jwtVerify, async (req, res) => {
   const response = await QuoteController.submitQuote(
     req.decoded.userId,
     req.body.text,
-    req.body.description || null
+    req.body.description || null,
+    req.body.category || null
   );
   res.status(response.code).send(response);
 });
+
+router.get("/categories", async (req, res) => {
+  const response = await QuoteController.getCategories()
+  res.status(response.code).send(response)
+})
 
 router.get("/review", jwtVerify, async (req, res) => {
   const response = await QuoteController.getQuotesForReview(

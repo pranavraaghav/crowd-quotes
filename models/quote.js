@@ -34,6 +34,10 @@ const schema = {
     type: DataTypes.ARRAY(DataTypes.STRING),
     defaultValue: [],
   },
+  category: {
+    type: DataTypes.TEXT,
+    defaultValue: 'none'
+  }
 };
 
 const options = {

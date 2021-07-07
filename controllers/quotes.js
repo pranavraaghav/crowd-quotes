@@ -1,4 +1,5 @@
 const Quote = require("../models/quote");
+const categories = require("../models/quote-categories")
 const User = require("../models/user");
 const uuid4 = require("uuid4");
 const db = require("../database/connection");
@@ -46,13 +47,25 @@ class QuoteController {
    * @param  {string} userId userId of quote author
    * @param  {string=} description Anything relevant to the story behind the quote
    */
-  static async submitQuote(userId, text, description) {
+  static async submitQuote(userId, text, description, category) {
     try {
+      // Verify if category is valid from given list
+      if(category) {
+        if(!categories.includes(category)){
+          return {
+            error: true,
+            code: 400,
+            message: "Invalid category provided",
+          };
+        }
+      }
+
       const quote = {
         quoteId: uuid4(),
         userId: userId,
         text: text,
         description: description || null,
+        category: category || null,
       };
       const createdQuote = await Quote.create(quote);
       return {
@@ -155,7 +168,7 @@ class QuoteController {
         { type: QueryTypes.UPDATE }
       );
       quote.dataValues.reviewedBy.push(userId);
-      
+
       return {
         error: false,
         code: 200,
@@ -167,6 +180,14 @@ class QuoteController {
         code: 500,
         message: error.toString(),
       };
+    }
+  }
+
+  static async getCategories() {
+    return {
+      error: false, 
+      code: 200,
+      categories: categories,
     }
   }
 }
