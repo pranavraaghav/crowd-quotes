@@ -1,5 +1,5 @@
 module.exports = categories = [
-    'none',
-    'advice',
-    'inspiration'
+    'None',
+    'Advice',
+    'Inspiration'
 ]
