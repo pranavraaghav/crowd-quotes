@@ -12,8 +12,6 @@ class UserController {
     try {
       const exists = await User.findOne({ where: { userName: username } });
       if (exists) {
-        // Do not send hashed password back to user
-        delete exists.dataValues.password;
         return {
           error: false,
           code: 400,
