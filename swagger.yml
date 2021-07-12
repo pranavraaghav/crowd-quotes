@@ -292,19 +292,14 @@ paths:
 
   /quote/review:
     get:
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
       security:
         - bearerAuth: []
-      requestBody: 
-        required: false
-        description: Define how many items to fetch 
-        content: 
-          application/json: 
-            schema:
-              type: object
-              properties:
-                count: 
-                  type: integer
-                  example: 5
       responses: 
         '200':
           description: >
