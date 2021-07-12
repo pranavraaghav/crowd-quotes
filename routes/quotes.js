@@ -20,14 +20,14 @@ router.post("/submit", jwtVerify, async (req, res) => {
 });
 
 router.get("/categories", async (req, res) => {
-  const response = await QuoteController.getCategories()
-  res.status(response.code).send(response)
-})
+  const response = await QuoteController.getCategories();
+  res.status(response.code).send(response);
+});
 
 router.get("/review", jwtVerify, async (req, res) => {
   const response = await QuoteController.getQuotesForReview(
     req.decoded.userId,
-    req.body.count || 1
+    req.query.count || 1
   );
   res.status(response.code).send(response);
 });
