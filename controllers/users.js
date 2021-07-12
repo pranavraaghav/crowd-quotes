@@ -31,7 +31,7 @@ class UserController {
           userId: createdUser.userId,
         },
         process.env.SECRET_KEY,
-        { expiresIn: "1d" }
+        { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
       );
       return {
         error: false,
@@ -63,7 +63,7 @@ class UserController {
               userId: exists.userId,
             },
             process.env.SECRET_KEY,
-            { expiresIn: "1d" }
+            { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
           );
           return {
             error: false,
