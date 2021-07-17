@@ -14,5 +14,7 @@ This section should list any major frameworks that you built your project using.
 * [Postgres](https://www.postgresql.org/)
 
 <!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
+## Plugins and other technologies used
 * [Swagger](https://swagger.io/)
+* [Sequelize](https://sequelize.org/)
+* [JWT](https://jwt.io/)
