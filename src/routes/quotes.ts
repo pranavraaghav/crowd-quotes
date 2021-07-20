@@ -1,6 +1,8 @@
-const router = require("express").Router();
+import express from "express";
 const jwtVerify = require("../middleware/auth");
 const QuoteController = require("../controllers/quotes");
+
+const router = express.Router()
 
 router.get("/", async (req, res) => {
   const response = await QuoteController.getRandomQuote(

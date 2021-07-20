@@ -1,5 +1,5 @@
 const Quote = require("../models/quote");
-const categories = require("../models/quote-categories")
+import { categories } from "../models/quote-categories"
 const User = require("../models/user");
 const uuid4 = require("uuid4");
 const db = require("../database/connection");

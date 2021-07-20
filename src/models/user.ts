@@ -1,4 +1,4 @@
-const sequelize = require('sequelize')
+import sequelize from "sequelize";
 const db = require("../database/connection");
 const bcrypt = require("bcrypt");
 

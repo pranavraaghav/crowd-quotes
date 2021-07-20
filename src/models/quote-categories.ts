@@ -1,4 +1,4 @@
-module.exports = categories = [
+export const categories = [
     'None',
     'Advice',
     'Inspiration'

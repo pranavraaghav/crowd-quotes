@@ -16,7 +16,7 @@ migrations()
   .then(() => {
     console.log("Migrations made");
   })
-  .catch((err) => {
+  .catch((err: Error) => {
     console.log("Error while migrating");
     console.log(err.toString());
     process.exit(2);
@@ -27,7 +27,7 @@ db.authenticate()
   .then(() => {
     console.log("Connected to database");
   })
-  .catch((err) => {
+  .catch((err: Error) => {
     console.log("Error connecting to DB");
     process.exit(2);
   });
@@ -41,4 +41,4 @@ app.use("/", routes);
 app.use("/api/v1/user", users);
 app.use("/api/v1/quote", quotes);
 
-module.exports = app;
+export { app as default };

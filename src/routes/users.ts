@@ -1,6 +1,8 @@
-const router = require("express").Router();
+import express from "express";
 const jwtVerify = require("../middleware/auth");
 const UserController = require("../controllers/users");
+
+const router = express.Router();
 
 router.post("/signup", async (req, res) => {
   const response = await UserController.signup(

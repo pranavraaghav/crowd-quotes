@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-module.exports = isLoggedIn = (req, res, next) => {
+const isLoggedIn = (req, res, next) => {
     const tokenHeader = req.header('Authorization')
     if(!tokenHeader) {
         const response = {
@@ -24,3 +24,5 @@ module.exports = isLoggedIn = (req, res, next) => {
         res.status(response.code).send(response)
     }
 }
+
+module.exports = isLoggedIn;
