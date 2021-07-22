@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const Quote = require("../models/quote");
 const uuid4 = require("uuid4");
-import jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
 
 class UserController {
   /**

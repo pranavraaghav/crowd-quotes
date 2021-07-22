@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+import * as jwt from "jsonwebtoken"
 
 const isLoggedIn = (req, res, next) => {
     const tokenHeader = req.header('Authorization')

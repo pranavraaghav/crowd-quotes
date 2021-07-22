@@ -1,4 +1,4 @@
-import DataTypes from "sequelize";
+import { DataTypes } from "sequelize";
 const db = require("../database/connection");
 
 const schema = {
