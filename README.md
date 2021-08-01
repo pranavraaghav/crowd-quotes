@@ -7,6 +7,9 @@ Have you ever come up with a great quote and went "Huh, maybe I should share thi
 
 In Crowd Quotes, anybody can submit their unique quote(s) which can then be provided to other end users who query the public API seeking random quotes. 
 
+## Frontend Developer API
+http://navboi.tech/api/v1/docs/
+
 ### Built With
 This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 * [NodeJs](https://nodejs.org/en/)
@@ -18,3 +21,7 @@ This section should list any major frameworks that you built your project using.
 * [Swagger](https://swagger.io/)
 * [Sequelize](https://sequelize.org/)
 * [JWT](https://jwt.io/)
+
+### Todo: 
+Add SSL certificate
+Implement Acc. recovery
